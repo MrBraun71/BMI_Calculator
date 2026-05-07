@@ -3,10 +3,14 @@ function calculateBMI() {
     const height = parseFloat(document.getElementById('height').value) / 100;
     const age = document.getElementById('age').value;
     const gender = document.getElementById('gender').value;
-    const resultDiv = document.getElementById('result');
+    
+    const resultContainer = document.getElementById('result-container');
+    const bmiValueSpan = document.getElementById('bmi-value');
+    const bmiCategoryP = document.getElementById('bmi-category');
+    const bmiInfoP = document.getElementById('bmi-info');
 
     if (isNaN(weight) || isNaN(height) || height <= 0 || !age) {
-        resultDiv.innerHTML = "Per favore inserisci valori validi per peso, altezza ed età.";
+        alert("Per favore inserisci valori validi per peso, altezza ed età.");
         return;
     }
 
@@ -18,5 +22,12 @@ function calculateBMI() {
     else if (bmi < 30) category = "Sovrappeso";
     else category = "Obesità";
 
-    resultDiv.innerHTML = `Il tuo BMI è: <strong>${bmi}</strong><br>Categoria: ${category}<br><small>(Età: ${age}, Sesso: ${gender === 'male' ? 'M' : 'F'})</small>`;
+    bmiValueSpan.innerHTML = bmi;
+    bmiCategoryP.innerHTML = category;
+    bmiInfoP.innerHTML = `Età: ${age}, Sesso: ${gender === 'male' ? 'Maschio' : 'Femmina'}`;
+    
+    resultContainer.classList.remove('hidden');
+    
+    // Smooth scroll to result
+    resultContainer.scrollIntoView({ behavior: 'smooth' });
 }
